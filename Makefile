@@ -43,13 +43,15 @@ BNS_OBJS	:= $(BNS_SRCS:.c=.o)
 
 all: $(NAME)
 
+bonus: $(BONUS_NAME)
+
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
-bonus: $(LIBFT) $(BNS_OBJS)
+$(BONUS_NAME): $(LIBFT) $(BNS_OBJS)
 	$(CC) $(CFLAGS) $(BNS_OBJS) $(LIBFT) -o $(BONUS_NAME)
 
 $(SRCS_DIR)/%.o: $(SRCS_DIR)/%.c includes/push_swap.h

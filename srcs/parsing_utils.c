@@ -32,8 +32,10 @@ int	is_valid_number(const char *s)
 
 long	ft_atol(const char *s)
 {
-	long	sign;
-	long	nbr;
+	long			sign;
+	unsigned long	nbr;
+	unsigned long	limit;
+	int				digit;
 
 	nbr = 0;
 	sign = 1;
@@ -45,12 +47,28 @@ long	ft_atol(const char *s)
 			sign = -1;
 		s++;
 	}
+	limit = LONG_MAX;
+	if (sign < 0)
+		limit++;
 	while (*s >= '0' && *s <= '9')
 	{
-		nbr = nbr * 10 + (*s - '0');
+		digit = *s - '0';
+		if (nbr > (limit - (unsigned long)digit) / 10)
+		{
+			if (sign < 0)
+				return (LONG_MIN);
+			return (LONG_MAX);
+		}
+		nbr = nbr * 10 + (unsigned long)digit;
 		s++;
 	}
-	return (nbr * sign);
+	if (sign < 0)
+	{
+		if (nbr == (unsigned long)LONG_MAX + 1UL)
+			return (LONG_MIN);
+		return (-(long)nbr);
+	}
+	return ((long)nbr);
 }
 
 int	has_duplicate(t_deque *a, int value)
