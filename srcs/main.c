@@ -35,6 +35,20 @@ static void	sort_stack(t_deque *a, t_deque *b)
 	}
 }
 
+static int	normalize_and_sort(t_deque *a, t_deque *b)
+{
+	if (is_sorted(a))
+		return (1);
+	if (!normalize_data(a))
+	{
+		free_deque(a);
+		write(2, "Error\n", 6);
+		return (0);
+	}
+	sort_stack(a, b);
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_deque	a;
@@ -53,16 +67,8 @@ int	main(int argc, char **argv)
 			write(2, "Error\n", 6);
 		return (ret < 0);
 	}
-	if (!is_sorted(&a))
-	{
-		if (!normalize_data(&a))
-		{
-			free_deque(&a);
-			write(2, "Error\n", 6);
-			return (1);
-		}
-		sort_stack(&a, &b);
-	}
+	if (!normalize_and_sort(&a, &b))
+		return (1);
 	free_deque(&a);
 	free_deque(&b);
 	return (0);
