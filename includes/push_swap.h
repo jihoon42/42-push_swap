@@ -63,6 +63,7 @@ void	normalize_data(t_deque *a);
 /* sort_small.c */
 void	sort_two(t_deque *a);
 void	sort_three(t_deque *a);
+void	sort_five(t_deque *a, t_deque *b);
 
 /* partition.c */
 void	partition_to_b(t_deque *a, t_deque *b);

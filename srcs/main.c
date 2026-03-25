@@ -26,6 +26,8 @@ static void	sort_stack(t_deque *a, t_deque *b)
 		sort_two(a);
 	else if (a->size == 3)
 		sort_three(a);
+	else if (a->size <= 5)
+		sort_five(a, b);
 	else
 	{
 		partition_to_b(a, b);
