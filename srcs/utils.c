@@ -44,19 +44,3 @@ void	free_deque(t_deque *q)
 	q->back = NULL;
 	q->size = 0;
 }
-
-void	error_exit(t_deque *a, char **split)
-{
-	int	i;
-
-	if (split)
-	{
-		i = 0;
-		while (split[i])
-			free(split[i++]);
-		free(split);
-	}
-	free_deque(a);
-	write(2, "Error\n", 6);
-	exit(1);
-}

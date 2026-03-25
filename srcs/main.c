@@ -55,7 +55,12 @@ int	main(int argc, char **argv)
 	}
 	if (!is_sorted(&a))
 	{
-		normalize_data(&a);
+		if (!normalize_data(&a))
+		{
+			free_deque(&a);
+			write(2, "Error\n", 6);
+			return (1);
+		}
 		sort_stack(&a, &b);
 	}
 	free_deque(&a);

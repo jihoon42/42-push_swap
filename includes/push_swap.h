@@ -58,7 +58,7 @@ long	ft_atol(const char *s);
 int		has_duplicate(t_deque *a, int value);
 
 /* indexing.c */
-void	normalize_data(t_deque *a);
+int		normalize_data(t_deque *a);
 
 /* sort_small.c */
 void	sort_two(t_deque *a);
@@ -72,7 +72,7 @@ void	partition_to_b(t_deque *a, t_deque *b);
 void	greedy(t_deque *a, t_deque *b);
 
 /* greedy_exec.c */
-void	execute_moves(t_deque *a, t_deque *b, int ba, int bb);
+void	execute_moves(t_deque *a, t_deque *b, int best_a, int best_b);
 
 /* greedy_utils.c */
 int		get_target_position(t_deque *a, int b_data);
@@ -84,6 +84,5 @@ void	last_sort(t_deque *a);
 /* utils.c */
 int		is_sorted(t_deque *a);
 void	free_deque(t_deque *q);
-void	error_exit(t_deque *a, char **split);
 
 #endif

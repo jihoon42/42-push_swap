@@ -57,7 +57,7 @@ static int	binary_search(int *arr, int value, int size)
 	return (-1);
 }
 
-void	normalize_data(t_deque *a)
+int	normalize_data(t_deque *a)
 {
 	int		*arr;
 	t_node	*curr;
@@ -65,7 +65,7 @@ void	normalize_data(t_deque *a)
 
 	arr = malloc(sizeof(int) * a->size);
 	if (!arr)
-		return ;
+		return (0);
 	curr = a->front;
 	i = 0;
 	while (curr)
@@ -81,4 +81,5 @@ void	normalize_data(t_deque *a)
 		curr = curr->next;
 	}
 	free(arr);
+	return (1);
 }

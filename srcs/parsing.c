@@ -15,6 +15,7 @@
 static int	process_token(t_deque *a, const char *token)
 {
 	long	value;
+	t_node	*node;
 
 	if (!is_valid_number(token))
 		return (0);
@@ -23,7 +24,10 @@ static int	process_token(t_deque *a, const char *token)
 		return (0);
 	if (has_duplicate(a, (int)value))
 		return (0);
-	push_back(a, new_node((int)value));
+	node = new_node((int)value);
+	if (!node)
+		return (0);
+	push_back(a, node);
 	return (1);
 }
 

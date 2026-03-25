@@ -73,25 +73,25 @@ static int	get_best_case(int ra, int rra, int rb, int rrb)
 	return (best);
 }
 
-void	execute_moves(t_deque *a, t_deque *b, int ba, int bb)
+void	execute_moves(t_deque *a, t_deque *b, int best_a, int best_b)
 {
 	int	best;
 
-	best = get_best_case(ba, a->size - ba, bb, b->size - bb);
+	best = get_best_case(best_a, a->size - best_a, best_b, b->size - best_b);
 	if (best == 0)
-		exec_rr(a, b, ba, bb);
+		exec_rr(a, b, best_a, best_b);
 	else if (best == 1)
-		exec_rrr(a, b, a->size - ba, b->size - bb);
+		exec_rrr(a, b, a->size - best_a, b->size - best_b);
 	else if (best == 2)
-		exec_ra_rrb(a, b, ba, b->size - bb);
+		exec_ra_rrb(a, b, best_a, b->size - best_b);
 	else
 	{
-		while (ba < a->size)
+		while (best_a < a->size)
 		{
 			reverse_rotate(a);
-			ba++;
+			best_a++;
 		}
-		while (bb-- > 0)
+		while (best_b-- > 0)
 			rotate(b);
 	}
 	push(a, b);
