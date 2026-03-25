@@ -39,16 +39,19 @@ int	main(int argc, char **argv)
 {
 	t_deque	a;
 	t_deque	b;
+	int		ret;
 
 	if (argc < 2)
 		return (0);
 	init_deque(&a, 'a');
 	init_deque(&b, 'b');
-	if (!parse_args(argc, argv, &a))
+	ret = parse_args(argc, argv, &a);
+	if (ret <= 0)
 	{
 		free_deque(&a);
-		write(2, "Error\n", 6);
-		return (1);
+		if (ret < 0)
+			write(2, "Error\n", 6);
+		return (ret < 0);
 	}
 	if (!is_sorted(&a))
 	{

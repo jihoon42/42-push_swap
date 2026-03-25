@@ -41,17 +41,17 @@ static int	parse_one_arg(t_deque *a, char *arg)
 
 	tokens = ft_split(arg, ' ');
 	if (!tokens)
-		return (0);
+		return (-1);
 	j = 0;
 	while (tokens[j])
 	{
 		if (!process_token(a, tokens[j]))
-			return (free_tokens(tokens, j), 0);
+			return (free_tokens(tokens, j), -1);
 		free(tokens[j]);
 		j++;
 	}
 	free(tokens);
-	return (1);
+	return (0);
 }
 
 int	parse_args(int argc, char **argv, t_deque *a)
@@ -61,8 +61,8 @@ int	parse_args(int argc, char **argv, t_deque *a)
 	i = 1;
 	while (i < argc)
 	{
-		if (!parse_one_arg(a, argv[i]))
-			return (0);
+		if (parse_one_arg(a, argv[i]) < 0)
+			return (-1);
 		i++;
 	}
 	return (a->size > 0);

@@ -95,8 +95,13 @@ int	main(int argc, char **argv)
 		return (0);
 	init_deque(&a, 'a');
 	init_deque(&b, 'b');
-	if (!parse_args(argc, argv, &a))
+	if (parse_args(argc, argv, &a) < 0)
 		return (err_exit(&a, NULL));
+	if (a.size == 0)
+	{
+		free_deque(&a);
+		return (0);
+	}
 	if (!read_and_exec(&a, &b))
 		return (err_exit(&a, &b));
 	if (is_sorted(&a) && b.size == 0)
