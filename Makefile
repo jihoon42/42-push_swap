@@ -21,6 +21,8 @@ SRCS		:= $(SRCS_DIR)/main.c \
 			   $(SRCS_DIR)/indexing.c \
 			   $(SRCS_DIR)/utils.c \
 			   $(SRCS_DIR)/sort_small.c \
+			   $(SRCS_DIR)/sort_small_ops.c \
+			   $(SRCS_DIR)/sort_small_utils.c \
 			   $(SRCS_DIR)/partition.c \
 			   $(SRCS_DIR)/greedy.c \
 			   $(SRCS_DIR)/greedy_exec.c \

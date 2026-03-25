@@ -12,52 +12,58 @@
 
 #include "push_swap.h"
 
-static int	find_pos(t_deque *a, int val)
+static void	init_small_solver(t_small_solver *solver, t_deque *a)
 {
 	t_node	*curr;
-	int		pos;
+	int		i;
 
+	ft_bzero(solver->states[0].a, sizeof(solver->states[0].a));
+	ft_bzero(solver->states[0].b, sizeof(solver->states[0].b));
+	solver->states[0].a_size = a->size;
+	solver->states[0].b_size = 0;
+	solver->states[0].prev = -1;
+	solver->states[0].op = -1;
 	curr = a->front;
-	pos = 0;
+	i = 0;
 	while (curr)
 	{
-		if (curr->data == val)
-			return (pos);
+		solver->states[0].a[i++] = curr->data;
 		curr = curr->next;
-		pos++;
 	}
-	return (0);
 }
 
-static void	move_to_top(t_deque *a, int val)
+int	is_goal_small_state(t_small_state *state, int size)
 {
-	int	pos;
+	int	i;
 
-	pos = find_pos(a, val);
-	if (pos <= a->size / 2)
+	if (state->a_size != size || state->b_size != 0)
+		return (0);
+	i = 0;
+	while (i < size)
 	{
-		while (a->front->data != val)
-			rotate(a);
+		if (state->a[i] != i)
+			return (0);
+		i++;
 	}
-	else
-	{
-		while (a->front->data != val)
-			reverse_rotate(a);
-	}
+	return (1);
 }
 
 void	sort_five(t_deque *a, t_deque *b)
 {
-	move_to_top(a, 0);
-	push(b, a);
-	if (a->size > 3)
+	t_small_solver	solver;
+	int				goal;
+	int				len;
+
+	init_small_solver(&solver, a);
+	goal = solve_small_state(&solver, a->size);
+	len = 0;
+	while (solver.states[goal].prev != -1)
 	{
-		move_to_top(a, 1);
-		push(b, a);
+		solver.path[len++] = solver.states[goal].op;
+		goal = solver.states[goal].prev;
 	}
-	sort_three(a);
-	push(a, b);
-	push(a, b);
+	while (len-- > 0)
+		replay_small_op(a, b, solver.path[len]);
 }
 
 void	sort_two(t_deque *a)
