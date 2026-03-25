@@ -43,7 +43,7 @@ static int	parse_one_arg(t_deque *a, char *arg)
 	if (!tokens)
 		return (-1);
 	if (!tokens[0])
-		return (free(tokens), 0);
+		return (free(tokens), -1);
 	j = 0;
 	while (tokens[j])
 	{
